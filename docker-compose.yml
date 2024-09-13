@@ -1,0 +1,12 @@
+services:
+    train:
+        # train service
+
+    evaluate:
+        # eval service
+
+    infer:
+        # infer service
+
+volumes:
+    # create volumes here
