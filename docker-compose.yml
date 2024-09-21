@@ -1,12 +1,28 @@
 services:
     train:
-        # train service
+        build:
+            context: .
+            dockerfile: model-train/Dockerfile.train
+        volumes:
+            - mnist:/opt/mount/model
+            - data:/opt/mount/data
 
     evaluate:
-        # eval service
+        build:
+            context: .
+            dockerfile: model-eval/Dockerfile.eval
+        volumes:
+            - mnist:/opt/mount/model
+            - data:/opt/mount/data
 
     infer:
-        # infer service
+        build:
+            context: .
+            dockerfile: model-infer/Dockerfile.infer
+        volumes:
+            - mnist:/opt/mount/model
+            - data:/opt/mount/data
 
 volumes:
-    # create volumes here
+  mnist:
+  data:

@@ -1,0 +1,10 @@
+FROM shravankgl/elmo4-tsai:session2
+
+WORKDIR /opt/mount
+
+COPY model.py /opt/mount/
+COPY model-infer/infer.py /opt/mount/
+
+RUN mkdir -p /opt/mount/model/results
+
+CMD ["python", "infer.py"]

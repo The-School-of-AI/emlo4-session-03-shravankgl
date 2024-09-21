@@ -1,0 +1,8 @@
+FROM shravankgl/elmo4-tsai:session2
+
+WORKDIR /opt/mount
+
+COPY model.py /opt/mount/
+COPY model-train/train.py /opt/mount/
+
+CMD ["python", "train.py", "--epochs", "1", "--num-processes", "2"]
