@@ -1,10 +1,8 @@
 FROM shravankgl/elmo4-tsai:session2
 
-WORKDIR /opt/mount
+WORKDIR /workdir
 
-COPY model.py /opt/mount/
-COPY model-infer/infer.py /opt/mount/
+COPY model.py /workdir/
+COPY model-infer/infer.py /workdir/
 
-RUN mkdir -p /opt/mount/model/results
-
-CMD ["python", "infer.py"]
+CMD ["python", "infer.py", "--save-dir", "/opt/mount"]

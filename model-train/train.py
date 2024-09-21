@@ -113,14 +113,15 @@ def main():
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))
         ])
-    dataset1 = datasets.MNIST('./data', train=True, download=True, transform=transform)
+    dataset1 = datasets.MNIST(os.path.join(args.save_dir, 'data'), train=True, download=True, transform=transform)
     kwargs = {'batch_size': args.batch_size,
               'shuffle': True}
 
     # mnist hogwild training process
-    if os.path.isfile("./model/mnist_cnn.pt"):
+    model_checkpoint_path = os.path.join(args.save_dir, "model/mnist_cnn.pt")
+    if os.path.isfile(model_checkpoint_path):
         print("Loading model_checkpoint")
-        model.load_state_dict(torch.load("./model/mnist_cnn.pt"))
+        model.load_state_dict(torch.load(model_checkpoint_path))
     else:
         print("No model checkpoint found. Starting from scratch.")
 
@@ -136,7 +137,9 @@ def main():
 
     
     # save model ckpt
-    torch.save(model.state_dict(), "./model/mnist_cnn.pt")
+    results_dir = Path(os.path.join(args.save_dir, "model"))
+    results_dir.mkdir(parents=True, exist_ok=True)
+    torch.save(model.state_dict(), results_dir / "mnist_cnn.pt")
 
 if __name__ == "__main__":
     main()

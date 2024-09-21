@@ -4,25 +4,21 @@ services:
             context: .
             dockerfile: model-train/Dockerfile.train
         volumes:
-            - mnist:/opt/mount/model
-            - data:/opt/mount/data
+            - mnist:/opt/mount
 
     evaluate:
         build:
             context: .
             dockerfile: model-eval/Dockerfile.eval
         volumes:
-            - mnist:/opt/mount/model
-            - data:/opt/mount/data
+            - mnist:/opt/mount
 
     infer:
         build:
             context: .
             dockerfile: model-infer/Dockerfile.infer
         volumes:
-            - mnist:/opt/mount/model
-            - data:/opt/mount/data
+            - mnist:/opt/mount
 
 volumes:
   mnist:
-  data:

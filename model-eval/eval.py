@@ -15,7 +15,7 @@ def test(args, model, device, dataset, dataloader_kwargs):
 
     test_loader = torch.utils.data.DataLoader(dataset, **dataloader_kwargs)
 
-    test_epoch(model, device, test_loader)
+    return test_epoch(model, device, test_loader)
 
 def test_epoch(model, device, data_loader):
     # write code to test this epoch
@@ -66,15 +66,16 @@ def main():
     )
 
     # create MNIST test dataset and loader
-    test_dataset = datasets.MNIST('./data', train=False, download=False, transform=transform)
+    test_dataset = datasets.MNIST(os.path.join(args.save_dir, 'data'), train=False, download=False, transform=transform)
 
     device = torch.device("cpu")
     model = Net().to(device)
 
-    # create model and load state dict
-    if os.path.isfile("./model/mnist_cnn.pt"):
+    # create model and load state dict 
+    model_checkpoint_path = os.path.join(args.save_dir, "model/mnist_cnn.pt")
+    if os.path.isfile(model_checkpoint_path):
         print("Loading model_checkpoint")
-        model.load_state_dict(torch.load("./model/mnist_cnn.pt"))
+        model.load_state_dict(torch.load(model_checkpoint_path))
 
         # test epoch function call
         kwargs = {'batch_size': args.test_batch_size}

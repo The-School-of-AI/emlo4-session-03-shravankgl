@@ -1,8 +1,8 @@
 FROM shravankgl/elmo4-tsai:session2
 
-WORKDIR /opt/mount
+WORKDIR /workdir
 
-COPY model.py /opt/mount/
-COPY model-eval/eval.py  /opt/mount/
+COPY model.py /workdir/
+COPY model-eval/eval.py  /workdir/
 
-CMD ["python", "eval.py"]
+CMD ["python", "eval.py", "--save-dir", "/opt/mount"]
